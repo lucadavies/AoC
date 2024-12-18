@@ -1,6 +1,3 @@
-from typing import get_origin
-
-
 def getCopy(s):
     new = []
     for row in s:
