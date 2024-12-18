@@ -1,1 +1,3 @@
-/.vscode
+**/.vscode
+/2024/out
+node_modules/
