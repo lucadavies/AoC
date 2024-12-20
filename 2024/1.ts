@@ -24,11 +24,11 @@ list1 = list1.sort((a, b) => a - b);
 list2 = list2.sort((a, b) => a - b);
 
 // Iterate through full list of pairs
-for (let i = 0; i<lines.length; i++) {
+for (let i = 0; i < lines.length; i++) {
     total += Math.abs(list1[i] - list2[i]);     // Add difference between the two numbers to a running total (task one)
 
     let count: number = 0;
-    for (let j = 0; j<lines.length; j++) {      // Iterate over each number in list2 to find occurences of the current number in list1...
+    for (let j = 0; j < lines.length; j++) {      // Iterate over each number in list2 to find occurences of the current number in list1...
         if (list2[j] === list1[i]) {
             count++;
         }
