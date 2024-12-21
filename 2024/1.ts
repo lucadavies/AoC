@@ -1,17 +1,11 @@
-import * as fs from 'fs';
+import { getFileLines } from "./ReadFileLines";
 
 let fileName: string = "1.txt";
-let encoding: BufferEncoding = "utf-8"
-let input: string;
+let lines: string[] = getFileLines(fileName)
 let list1: number[] = [];
 let list2: number[] = [];
-let lines: string[];
 let total: number = 0;
 let similarity: number = 0;
-
-input = fs.readFileSync(fileName, encoding);    // Read full file in
-
-lines = input.split('\r\n');                    // Get lines of file
 
 for (var line of lines) {
     let items = line.split(/[ ,]+/);            // Split into the two values on each line...

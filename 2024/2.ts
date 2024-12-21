@@ -1,9 +1,8 @@
-import * as fs from 'fs';
+
+import { getFileLines } from './ReadFileLines';
 
 let fileName: string = "2.txt";
-let encoding: BufferEncoding = "utf-8"
-let input: string;
-let lines: string[];
+let lines: string[] = getFileLines(fileName);
 let reports: number[][] = [];
 let safeCount: number = 0;
 
@@ -52,10 +51,6 @@ function isMostlySafe(report: number[]): boolean {
     }
     return false;
 }
-
-input = fs.readFileSync(fileName, encoding);    // Read full file in
-
-lines = input.split('\r\n');                    // Get lines of file (reports)
 
 for (var line of lines) {
     let reportRaw = line.split(/[ ,]+/);            // Split into levels for each report
