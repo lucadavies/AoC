@@ -1,4 +1,3 @@
-
 import { getFileLines } from './ReadFileLines';
 
 let fileName: string = "2.txt";
@@ -52,21 +51,23 @@ function isMostlySafe(report: number[]): boolean {
     return false;
 }
 
-for (var line of lines) {
-    let reportRaw = line.split(/[ ,]+/);            // Split into levels for each report
-    let currReport: number[] = [];
-
-    // Parse strings to ints and push each to an array
-    reportRaw.forEach(lvl => currReport.push(parseInt(lvl)));
-
-    // Add complete report to array of reports
-    reports.push(currReport);
-}
-
-for (var report of reports) {
-    if (isMostlySafe(report)) {
-        safeCount++;
+export function main(): void {
+    for (var line of lines) {
+        let reportRaw = line.split(/[ ,]+/);            // Split into levels for each report
+        let currReport: number[] = [];
+    
+        // Parse strings to ints and push each to an array
+        reportRaw.forEach(lvl => currReport.push(parseInt(lvl)));
+    
+        // Add complete report to array of reports
+        reports.push(currReport);
     }
+    
+    for (var report of reports) {
+        if (isMostlySafe(report)) {
+            safeCount++;
+        }
+    }
+    
+    console.log("Safe reports: " + safeCount);
 }
-
-console.log("Safe reports: " + safeCount);
