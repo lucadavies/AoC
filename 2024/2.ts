@@ -38,60 +38,19 @@ function isSafe(report: number[]): boolean {
     return safe;
 }
 
-function isSafeV2(report: number[]): boolean {
-    let safe: boolean = true;
-
-    let diff: number = report[0] - report[1];
-    let isAsc: boolean = (diff < 0 && diff !== 0);
-    let unsafeLevelPresent: boolean = false;
-
-    for (let i = 0; i < report.length - 1; i++) {
-
-        // Get and check difference between neighbouring levels
-        let diff: number = Math.abs(report[i] - report[i + 1]);
-        if (diff > 3 || diff === 0) {
-            if (unsafeLevelPresent) {
-                safe = false;
-                break;
-            }
-            else {
-                unsafeLevelPresent = true;
-                report.splice(i + 1, 1);
-                i--;
-            }
-        }
-        if (isAsc) {
-            // If list began ascending and is now descending
-            if (report[i] - report[i + 1] > 0) {
-                if (unsafeLevelPresent) {
-                    safe = false;
-                    break;
-                }
-                else {
-                    unsafeLevelPresent = true;
-                    report.splice(i + 1, 1);
-                    i--;
-                }
-            }
+function isMostlySafe(report: number[]): boolean {
+    for (let i = 0; i < report.length; i++) {
+        if (isSafe(report)) {
+            return true;
         }
         else {
-            // If list began descending and is now ascending
-            if (report[i] - report[i + 1] < 0) {
-                if (unsafeLevelPresent) {
-                    safe = false;
-                    break;
-                }
-                else {
-                    unsafeLevelPresent = true;
-                    report.splice(i + 1, 1);
-                    i--;
-                }
+            let t: number[] = report.slice(0, i).concat(report.slice(i + 1, report.length));
+            if (isSafe(t)) {
+                return true;
             }
         }
     }
-
-    console.log(report + " : " + safe);
-    return safe;
+    return false;
 }
 
 input = fs.readFileSync(fileName, encoding);    // Read full file in
@@ -110,7 +69,7 @@ for (var line of lines) {
 }
 
 for (var report of reports) {
-    if (isSafeV2(report)) {
+    if (isMostlySafe(report)) {
         safeCount++;
     }
 }
