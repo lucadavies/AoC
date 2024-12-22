@@ -1,4 +1,3 @@
-import { match } from "assert";
 import { getFileLines } from "./ReadFileLines";
 
 let fileName: string = "3.txt";
