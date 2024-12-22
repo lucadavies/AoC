@@ -6,7 +6,7 @@ let target: string = "XMAS";
 let count: number = 0;
 
 enum Direction {
-    Up = 0,
+    Up,
     Down,
     Left,
     Right,
@@ -16,7 +16,20 @@ enum Direction {
     DownRight
 }
 
+enum Rotation {
+    "0d",
+    "90d",
+    "180d",
+    "270d"
+}
+
 export function main(): void {
+    mainT1();
+    mainT2();
+}
+
+function mainT1(): void {
+    count = 0;
     for (let j = 0; j < lines[0].length; j++) {
         for (let i = 0; i < lines.length; i++) {
             let k = 0;
@@ -32,7 +45,20 @@ export function main(): void {
             }
         }
     }
-    console.log("Count: " + count);
+    console.log("XMAS Count: " + count);
+}
+
+function mainT2(): void {
+    count = 0;
+    for (let j = 1; j < lines[0].length - 1; j++) {
+        for (let i = 1; i < lines.length - 1; i++) {
+            if (lines[j][i] === "A")
+            {
+                findCrossMAS(j, i);
+            }
+        }
+    }
+    console.log("X-MAS Count: " + count);
 }
 
 function findNextChar(y: number, x: number, z: number, dir: Direction): void {
@@ -106,5 +132,28 @@ function findNextChar(y: number, x: number, z: number, dir: Direction): void {
     }
     else {
         count++;
+    }
+}
+
+function findCrossMAS(y: number, x: number): void {
+    if (lines[y - 1][x - 1] === "M" && lines[y - 1][x + 1] === "S" ) {
+        if (lines[y + 1][x - 1] === "M" && lines[y + 1][x + 1] === "S") {
+            count++;
+        }
+    }
+    else if (lines[y - 1][x - 1] === "M" && lines[y - 1][x + 1] === "M" ) {
+        if (lines[y + 1][x - 1] === "S" && lines[y + 1][x + 1] === "S") {
+            count++;
+        }
+    }
+    else if (lines[y - 1][x - 1] === "S" && lines[y - 1][x + 1] === "M" ) {
+        if (lines[y + 1][x - 1] === "S" && lines[y + 1][x + 1] === "M") {
+            count++;
+        }
+    }
+    else if (lines[y - 1][x - 1] === "S" && lines[y - 1][x + 1] === "S" ) {
+        if (lines[y + 1][x - 1] === "M" && lines[y + 1][x + 1] === "M") {
+            count++;
+        }
     }
 }
